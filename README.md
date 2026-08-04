@@ -180,7 +180,28 @@ loveydb.com/resumapp?utm_source=meta&utm_medium=paid&utm_campaign=voc_appeals # 
 
 ---
 
-## 6. 배포 (아직 안 함 — 사용자 확인 필요)
+## 6. 배포 — ✅ 완료 (2026-08-04)
+
+**라이브 주소: https://loveydb-danny.github.io/resumapp/**
+
+- 저장소: `loveydb-danny/resumapp` (public)
+- 이 폴더가 곧 저장소다. 수정 후 `git add -A && git commit && git push` 하면 1~2분 뒤 반영된다
+- 마케팅 repo에서는 `/landing/`을 `.gitignore` 처리해 중첩 repo 충돌을 막았다
+- `.nojekyll` — GitHub Pages 기본 Jekyll 빌드를 끈다(`_unused/` 폴더가 무시되는 것도 방지)
+
+### 기존 사이트 영향 없음 (확인 완료)
+
+새 저장소를 만든 것이라 기존 페이지는 건드리지 않았다. 배포 후 전부 200 응답 확인:
+`loveydb-danny.github.io/` · `/resum-legal/`(개인정보·약관·계정삭제) · `/loveydb-site/`
+
+### 나중에 loveydb.com 또는 resum.co.kr로 옮길 때
+
+1. 도메인 연결 (아래 방법 A 3~4단계)
+2. `index.html`의 `canonical`·`og:url`·`og:image` 주소를 새 도메인으로 교체 — **현재는 github.io로 되어 있다**
+
+---
+
+## 6-1. 커스텀 도메인 붙이기 (선택)
 
 ### 방법 A. GitHub Pages — 지금 구조 그대로
 
