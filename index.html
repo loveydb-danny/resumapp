@@ -533,15 +533,22 @@ a{color:inherit; text-decoration:none}
 (function(){
   'use strict';
 
-  /* 1) 스토어 링크 — 유입 채널(UTM)을 스토어까지 전달 */
+  /* 1) 스토어 링크 — 유입 채널(UTM)을 스토어까지 전달
+     · Android: referrer 파라미터. Play Console → 획득 보고서에서 바로 잡힌다(검증된 방식)
+     · iOS: ct(캠페인 토큰) + pt(프로바이더 토큰). pt는 App Store Connect에서만 확인 가능하고,
+       비어 있으면 App Analytics에 캠페인이 잡히지 않을 수 있다.
+       ⚠️ 값을 확보하면 APPLE_PT에 넣을 것. 비어 있으면 pt 파라미터 자체를 빼서 링크를 깨끗하게 둔다. */
   var APPLE_ID='6769666252', ANDROID_PKG='com.resum.app';
+  var APPLE_PT='';   // ← App Store Connect의 Provider Token(숫자). 확보 시 여기에 입력
+
   var q=new URLSearchParams(location.search);
   var src=q.get('utm_source')||'web',
       med=q.get('utm_medium')||'landing',
       cmp=q.get('utm_campaign')||'resumapp';
 
   var iosURL='https://apps.apple.com/kr/app/id'+APPLE_ID+
-             '?ct='+encodeURIComponent(src+'_'+cmp)+'&pt=&mt=8';
+             '?ct='+encodeURIComponent(src+'_'+cmp)+
+             (APPLE_PT ? '&pt='+encodeURIComponent(APPLE_PT) : '')+'&mt=8';
   var androidURL='https://play.google.com/store/apps/details?id='+ANDROID_PKG+'&hl=ko&referrer='+
              encodeURIComponent('utm_source='+src+'&utm_medium='+med+'&utm_campaign='+cmp);
 
