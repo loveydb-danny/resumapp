@@ -180,50 +180,60 @@ loveydb.com/resumapp?utm_source=meta&utm_medium=paid&utm_campaign=voc_appeals # 
 
 ---
 
-## 6. 배포 — ✅ 완료 (2026-08-04)
+## 6. 배포 — ✅ 완료
 
-**라이브 주소: https://loveydb-danny.github.io/resumapp/**
+# 🔗 https://resum.co.kr
 
-- 저장소: `loveydb-danny/resumapp` (public)
-- 이 폴더가 곧 저장소다. 수정 후 `git add -A && git commit && git push` 하면 1~2분 뒤 반영된다
+- 저장소: `loveydb-danny/resumapp` (public) · 호스팅: GitHub Pages
+- 도메인: 가비아 구매(2026-08-06), apex를 대표 주소로 사용
+- **이 폴더가 곧 저장소다.** 수정 후 아래를 실행하면 1~2분 뒤 반영된다
+
+```bash
+cd ~/resum_marketing/landing
+git add -A && git commit -m "수정 내용" && git push
+```
+
+### 접속 경로 (전부 대표 주소로 모임 — 검증 완료 2026-08-06)
+
+| 들어온 주소 | 결과 |
+|---|---|
+| `http://resum.co.kr` | 301 → `https://resum.co.kr` |
+| `http://www.resum.co.kr` | → `https://resum.co.kr` |
+| `https://www.resum.co.kr` | → `https://resum.co.kr` |
+| `https://loveydb-danny.github.io/resumapp/` | → `https://resum.co.kr` |
+
+**예전에 뿌린 github.io 링크도 자동 전달되므로 아무것도 깨지지 않는다.**
+
+### 가비아 DNS 설정값 (TTL 600)
+
+| 타입 | 호스트 | 값 |
+|---|---|---|
+| A | @ | `185.199.108.153` |
+| A | @ | `185.199.109.153` |
+| A | @ | `185.199.110.153` |
+| A | @ | `185.199.111.153` |
+| CNAME | www | `loveydb-danny.github.io.` |
+
+### 인증서
+
+Let's Encrypt 자동 발급·자동 갱신. GitHub Pages의 `https_enforced=true`로 HTTP 접속은 항상 HTTPS로 301된다.
+
+### 기타
+
 - 마케팅 repo에서는 `/landing/`을 `.gitignore` 처리해 중첩 repo 충돌을 막았다
 - `.nojekyll` — GitHub Pages 기본 Jekyll 빌드를 끈다(`_unused/` 폴더가 무시되는 것도 방지)
+- 기존 사이트 영향 없음: `loveydb-danny.github.io/` · `/resum-legal/` · `/loveydb-site/` 모두 200 확인
 
-### 기존 사이트 영향 없음 (확인 완료)
+### 나중에 Vercel로 옮긴다면
 
-새 저장소를 만든 것이라 기존 페이지는 건드리지 않았다. 배포 후 전부 200 응답 확인:
-`loveydb-danny.github.io/` · `/resum-legal/`(개인정보·약관·계정삭제) · `/loveydb-site/`
+지금 옮길 이유는 없다. 이런 게 필요해질 때만 검토:
 
-### 나중에 loveydb.com 또는 resum.co.kr로 옮길 때
+- **주소 자동 분기** — `resum.co.kr/download`에서 OS 감지 후 스토어로 보내기. GitHub Pages는 서버 리다이렉트를 못 한다
+- **방문자 통계 내장** — GitHub Pages는 없어서 GA4를 따로 붙여야 한다
 
-1. 도메인 연결 (아래 방법 A 3~4단계)
-2. `index.html`의 `canonical`·`og:url`·`og:image` 주소를 새 도메인으로 교체 — **현재는 github.io로 되어 있다**
-
----
-
-## 6-1. 커스텀 도메인 붙이기 (선택)
-
-### 방법 A. GitHub Pages — 지금 구조 그대로
-
-`loveydb.com`의 DNS는 **이미 GitHub Pages를 가리키고 있다**(가비아 설정 완료).
-다만 GitHub 쪽에서 도메인을 등록하지 않아 현재 `loveydb.com`은 404다.
-
-1. `loveydb-danny/loveydb-danny.github.io` 저장소에 `CNAME` 파일 추가 → 내용 `loveydb.com`
-2. 저장소 Settings → Pages → Custom domain에 `loveydb.com` 입력 → Enforce HTTPS 체크
-3. `resumapp` 저장소를 만들고 이 폴더 내용을 올린 뒤 Pages 활성화
-4. → `loveydb.com/resumapp`으로 접속됨
-
-### 방법 B. Vercel
-
-리다이렉트 설정·방문 통계가 쉬워 나중에 도메인을 옮길 때 유리하다.
-정적 페이지라 별도 빌드 설정이 없다.
-
-### resum.co.kr로 이전할 때
-
-1. 도메인 구매 후 배포처에 연결
-2. `loveydb.com/resumapp` → `resum.co.kr` 301 리다이렉트
-3. 기존에 뿌린 링크는 자동 전달되므로 **아무것도 깨지지 않는다**
-4. `index.html`의 `og:url`·`canonical`만 새 주소로 교체
+옮길 땐 DNS 레코드 값만 바꾸면 되고 10분쯤 걸린다.
+단, **Vercel 무료(Hobby) 플랜은 비상업적 개인 프로젝트용**이고 리썸은 Play 스토어에
+`광고 포함`·`인앱 구매` 표기가 있는 상업 앱이라 원칙적으로 Pro(월 $20)가 필요하다.
 
 ---
 
