@@ -1,0 +1,13 @@
+[
+  {
+    "relation": [ "delegate_permission/common.handle_all_urls" ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.resum.app",
+      "sha256_cert_fingerprints": [
+        "63:10:70:DF:C4:7E:31:C9:04:6A:D6:7A:F1:FA:6E:1F:D0:38:02:C3:B5:BD:1A:CE:1A:F4:33:17:73:C8:A0:96",
+        "22:70:F9:07:AD:E2:36:5D:1E:3F:D6:A3:C7:81:22:09:E3:2A:E1:34:47:D3:FC:F4:C3:7D:A0:70:F5:BD:BE:30"
+      ]
+    }
+  }
+]

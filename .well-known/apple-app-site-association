@@ -1,0 +1,26 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "2HQ8LHY4K2.com.resumios.app",
+        "paths": [
+          "/letter",
+          "/letter/",
+          "/letter/*",
+          "/invite",
+          "/invite/",
+          "/invite/*"
+        ],
+        "components": [
+          { "/": "/letter" },
+          { "/": "/letter/" },
+          { "/": "/letter/*" },
+          { "/": "/invite" },
+          { "/": "/invite/" },
+          { "/": "/invite/*" }
+        ]
+      }
+    ]
+  }
+}
