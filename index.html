@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
 <title>리썸 re:sum — 기억이 아닌, '추억'을 남기기 위해</title>
-<meta name="description" content="커플이 함께 데이트 장소를 기록하는 앱. 그날 그 장소에 맞춘 질문으로 추억을 남기고, 연인만 찾을 수 있는 쪽지를 장소에 숨겨보세요. 12년차 커플이 직접 만들었어요.">
+<meta name="description" content="커플이 함께 데이트 장소를 기록하는 앱. 그날 그 장소에 맞춘 질문으로 추억을 남기고, 연인만 찾을 수 있는 쪽지를 장소에 숨겨보세요. 12년 차 커플이 직접 만들었어요.">
 <meta name="theme-color" content="#ffffff">
 <meta name="color-scheme" content="light">
 <link rel="canonical" href="https://resum.co.kr/">
@@ -13,7 +13,7 @@
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="리썸 re:sum">
 <meta property="og:title" content="리썸 re:sum — 기억이 아닌, '추억'을 남기기 위해">
-<meta property="og:description" content="커플이 함께 데이트 장소를 기록하는 앱. 12년차 커플이 직접 만들었어요.">
+<meta property="og:description" content="커플이 함께 데이트 장소를 기록하는 앱. 12년 차 커플이 직접 만들었어요.">
 <meta property="og:image" content="https://resum.co.kr/assets/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -136,6 +136,15 @@ a{color:inherit; text-decoration:none}
 /* 한국어 라벨 — .16em 자간은 라틴 대문자용이라 한글에선 낱자가 흩어진다 */
 .label--ko{letter-spacing:.02em; text-transform:none}
 
+/* 텀블벅 성과 — 페이지에서 유일한 객관적 신뢰 근거라 라벨보다 무게를 준다 */
+.proof{
+  display:inline-flex; align-items:baseline; gap:5px;
+  margin:0; padding:8px 15px; border-radius:999px;
+  background:var(--blush); color:#8a2740;
+  font-size:13.5px; font-weight:700; letter-spacing:-.01em;
+}
+.proof b{font-size:16px; font-weight:800; letter-spacing:-.02em}
+
 .h1,.h2{margin:0; text-wrap:balance; letter-spacing:-.03em}
 .h1{font-size:var(--fs-h1); line-height:1.32; font-weight:800}
 .h2{font-size:var(--fs-h2); line-height:1.36; font-weight:800}
@@ -212,9 +221,13 @@ a{color:inherit; text-decoration:none}
 
 /* ── 더 보기: 가로 스와이프 카드 ──
    첫 카드가 거터선에 정확히 서도록 padding-inline과 scroll-padding을 맞춘다 */
+/* 레일은 가로 스크롤을 위해 .grid 밖(전체 폭)에 둔다.
+   그래서 첫 카드가 본문 거터선에 서도록 안쪽 여백을 직접 계산해야 한다.
+   화면이 좁으면 --gutter, 넓으면 (여백/2 + gutter) = 본문 왼쪽 끝과 동일 */
 .rail{
+  --rail-inset: max(var(--gutter), calc((100% - var(--col)) / 2 + var(--gutter)));
   display:flex; gap:var(--s-3); overflow-x:auto; width:100%;
-  padding-inline:var(--gutter); scroll-padding-inline:var(--gutter);
+  padding-inline:var(--rail-inset); scroll-padding-inline:var(--rail-inset);
   padding-block:var(--s-1) var(--s-2);
   scroll-snap-type:x mandatory; scrollbar-width:none; -ms-overflow-style:none;
   -webkit-overflow-scrolling:touch;
@@ -322,9 +335,9 @@ a{color:inherit; text-decoration:none}
     <div class="grid">
       <div class="stack sec__head">
         <!-- ✏️ 편집: 히어로 -->
-        <p class="label label--ko">텀블벅 409% 달성 · 후원자 46명</p>
+        <p class="proof">텀블벅 <b>409%</b> 달성</p>
         <h1 class="h1 tell">기억이 아닌,<br><span class="hl">'추억'</span>을 남기기 위해</h1>
-        <p class="body">커플이 함께 데이트 장소를 기록하는 앱.<br>12년차 커플이 직접 만들었어요.</p>
+        <p class="body">커플이 함께 데이트 장소를 기록하는 앱.<br>12년 차 커플이 직접 만들었어요.</p>
         <div class="stores" id="stores-hero"></div>
       </div>
     </div>
@@ -338,7 +351,7 @@ a{color:inherit; text-decoration:none}
         <p class="label label--ko">리썸을 만든 이유</p>
         <h2 class="h2 tell">“우리 갔던 카페가 어디였지?”<br>“분명 엄청 웃었는데, 왜 웃었지?”</h2>
         <p class="body">서로에게 익숙해질수록 데이트는 반복되고,<br>추억은 조금씩 희미해져요.</p>
-        <p class="small">12년차 커플인 저희도 그랬어요.</p>
+        <p class="small">12년 차 커플인 저희도 그랬어요.</p>
       </div>
     </div>
 
@@ -413,7 +426,6 @@ a{color:inherit; text-decoration:none}
       <div class="stack sec__head rise">
         <p class="label label--quiet label--ko">더 보기</p>
         <h2 class="h2">이런 것도 함께 쌓여요</h2>
-        <p class="small">옆으로 밀어서 둘러보세요</p>
       </div>
     </div>
 
@@ -427,7 +439,7 @@ a{color:inherit; text-decoration:none}
         </div>
       </article>
       <article class="card">
-        <img src="images/9.webp" alt="평점과 평가태그 화면" loading="lazy" width="1240" height="678">
+        <img src="images/9.webp" alt="평점과 평가 태그 화면" loading="lazy" width="1240" height="678">
         <div class="card__txt">
           <h3>별점과 태그로 아는 취향</h3>
           <p>편의를 중요하게 여기는지, 인테리어를 중요하게 여기는지.<br>연인이 만족한 포인트를 살펴봐요.</p>
