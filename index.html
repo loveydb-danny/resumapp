@@ -136,14 +136,20 @@ a{color:inherit; text-decoration:none}
 /* 한국어 라벨 — .16em 자간은 라틴 대문자용이라 한글에선 낱자가 흩어진다 */
 .label--ko{letter-spacing:.02em; text-transform:none}
 
-/* 텀블벅 성과 — 페이지에서 유일한 객관적 신뢰 근거라 라벨보다 무게를 준다 */
+/* 텀블벅 성과 — 배경 없이 글자만으로 강조.
+   주변 말은 낮추고 숫자만 크기·굵기·색을 올려 대비로 눈에 들어오게 한다 */
 .proof{
-  display:inline-flex; align-items:baseline; gap:5px;
-  margin:0; padding:8px 15px; border-radius:999px;
-  background:var(--blush); color:#8a2740;
-  font-size:13.5px; font-weight:700; letter-spacing:-.01em;
+  margin:0; font-size:14.5px; font-weight:600;
+  color:var(--ink-3); letter-spacing:-.01em;
 }
-.proof b{font-size:16px; font-weight:800; letter-spacing:-.02em}
+.proof b{
+  font-size:22px; font-weight:800; color:var(--accent);
+  letter-spacing:-.035em; margin-inline:2px;
+}
+@media (min-width:720px){
+  .proof{font-size:15.5px}
+  .proof b{font-size:25px}
+}
 
 .h1,.h2{margin:0; text-wrap:balance; letter-spacing:-.03em}
 .h1{font-size:var(--fs-h1); line-height:1.32; font-weight:800}
