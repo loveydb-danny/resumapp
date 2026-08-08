@@ -91,22 +91,30 @@ p.lead{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 26px;}
      컨텍스트(카카오톡 인앱브라우저 등). 커스텀 스킴(iOS) / intent(Android)로
      앱을 직접 깨운다. 미설치자는 스킴 실행이 무시되고 스토어 버튼이 남는다.
 
-     ⚠️⚠️ Android intent는 **invite.loveydb.com 루트 + `?letter=1` 쿼리** 로 쏜다.
-        경로(`/letter`)나 호스트(resum.co.kr)로 바꾸면 구버전 앱이 깨진다.
+     Android intent는 **resum.co.kr/letter/** 로 쏜다 — 쪽지는 resum 도메인으로
+     완전히 독립시킨다(loveydb는 커플 초대 전용). 2026-08-08 결정.
 
-        (1) 호스트: 현재 스토어 배포 빌드에는 resum.co.kr intent-filter가 없다.
-            신규 도메인으로 쏘면 구버전에서 앱이 아예 열리지 않는다.
-        (2) 경로: 구버전은 Flutter 내장 딥링킹(Android 3.24+ 기본 활성)이 수신 URL을
-            go_router 경로로 그대로 넘긴다. `/letter` 라우트가 없어
-            "화면을 불러오지 못했어요"(GoException) 에러 화면이 뜬다.
-            (2026-08-08 실기기 재현)
-        (3) 그래서 **경로는 루트로 두고 의도는 쿼리에 싣는다.** 라우트 매칭은 경로만
-            보므로 구버전은 홈 라우트에 무해하게 착지하고, `?letter=1`을 읽는 빌드
-            (deep_link_service.dart `_isLetterLink`)부터 쪽지 탭까지 랜딩한다.
-            → 구버전·신버전 동시 지원. 강제 업데이트를 기다릴 필요가 없다.
+     · 새 빌드: AndroidManifest의 `host=resum.co.kr` + `pathPrefix=/letter`
+       intent-filter에 매칭돼 앱이 열리고 쪽지 탭까지 랜딩한다.
+       (explicit package intent라 App Links 검증 통과 여부와 무관하게 동작)
+     · 구버전(스토어 배포분): resum.co.kr intent-filter가 없어 매칭 실패 →
+       S.browser_fallback_url로 Play 스토어 이동 = 업데이트 유도. 강제 업데이트
+       예정이라 앱을 열어줘도 업데이트 화면에 갇히므로 스토어 직행이 오히려 낫다.
 
-     iOS는 이 문제가 없다 — 내장 딥링킹이 기본 비활성이라 go_router가 관여하지
-     않고, `resum://letter` 스킴이 구버전에도 이미 등록돼 있다.
+     ⚠️ 경로에 `/letter`를 쓰는 것은 **새 빌드 전용**이다. 구버전은 Flutter 내장
+        딥링킹(Android 3.24+ 기본 활성)이 수신 URL을 go_router로 넘기는데 `/letter`
+        라우트가 없어 "화면을 불러오지 못했어요"(GoException)가 뜬다(2026-08-08 실기기
+        재현). 위 (구버전=매칭 실패→스토어) 경로 덕에 구버전이 이 URL을 수신하는
+        일 자체가 없어 안전하다. **host를 invite.loveydb.com으로 되돌리면서 경로만
+        `/letter`로 남기면 구버전이 그 에러 화면을 맞는다 — 절대 그렇게 조합하지 말 것.**
+
+     ↩️ 롤백: 문제가 생기면 아래 AOS_APP 한 줄을
+        `intent://invite.loveydb.com/?letter=1#Intent;...` 로 되돌리면 구버전도 앱이
+        열린다(홈 착지). 앱의 `_isLetterLink`가 그 쿼리 형태를 계속 인식하므로
+        **앱 수정·재심사 없이 웹만으로 복귀 가능**하다.
+
+     iOS는 이 선택과 무관하다 — 내장 딥링킹이 기본 비활성이라 go_router가 관여하지
+     않고, `resum://letter` 스킴이 구버전에도 이미 등록돼 있어 그대로 잘 열린다.
      ───────────────────────────────────────────────────────────────── */
   var APPLE_ID='6769666252', APPLE_PT='128899102', ANDROID_PKG='com.resum.app';
 
@@ -116,7 +124,7 @@ p.lead{color:var(--muted);font-size:14px;line-height:1.7;margin:0 0 26px;}
                 encodeURIComponent('utm_source=letter&utm_medium=share&utm_campaign=letter_share');
 
   var IOS_APP='resum://letter';
-  var AOS_APP='intent://invite.loveydb.com/?letter=1#Intent;scheme=https;package='+ANDROID_PKG+';'+
+  var AOS_APP='intent://resum.co.kr/letter/#Intent;scheme=https;package='+ANDROID_PKG+';'+
               'S.browser_fallback_url='+encodeURIComponent(AOS_STORE)+';end';
 
   var ua=navigator.userAgent||'';
